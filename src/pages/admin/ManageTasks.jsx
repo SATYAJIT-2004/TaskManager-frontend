@@ -45,9 +45,10 @@ const MyTasks = () => {
     }
   };
 
-  const handleClick = (taskId) => {
-    navigate(`/user/task-details/${taskId}`);
-  };
+const handleClick = (taskData) => {
+    navigate("/admin/create-task", { state: { taskId: taskData._id } })
+  }
+
 
   useEffect(() => {
     getAllTasks(filterStatus);
