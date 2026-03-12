@@ -58,84 +58,68 @@ const Dashboard = () => {
 
   return (
     <DashboardLayout activeMenu={"Dashboard"}>
-      <div className="px-3 py-4 sm:p-6 space-y-4 sm:space-y-6 w-full overflow-x-hidden">
-
+      <div className="w-full px-3 sm:px-6 py-4 space-y-6 overflow-hidden">
         {/* Welcome Section */}
         <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-4 sm:p-6 shadow-lg text-white">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="text-lg sm:text-2xl md:text-3xl font-bold">
+              <h2 className="text-xl sm:text-3xl font-bold">
                 Welcome! {currentUser?.name}
               </h2>
 
-              <p className="text-blue-100 text-xs sm:text-sm mt-1">
+              <p className="text-blue-100 text-sm mt-1">
                 {moment().format("dddd Do MMMM YYYY")}
               </p>
             </div>
 
             <button
-              className="w-full md:w-auto bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md text-sm"
+              className="w-full md:w-auto bg-white text-blue-600 hover:bg-blue-50 px-5 py-2 rounded-lg font-medium shadow-md"
               onClick={() => navigate("/admin/create-task")}
             >
               Create New Task
             </button>
-
           </div>
         </div>
 
         {/* Stats Cards */}
         {dashboardData && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md border-l-4 border-blue-500">
-              <h3 className="text-gray-500 text-xs sm:text-sm font-medium">
-                Total Tasks
-              </h3>
-              <p className="text-2xl sm:text-3xl font-bold text-gray-800 mt-1 sm:mt-2">
+              <h3 className="text-gray-500 text-sm">Total Tasks</h3>
+              <p className="text-2xl sm:text-3xl font-bold mt-2">
                 {dashboardData?.charts?.taskDistribution?.All || 0}
               </p>
             </div>
 
             <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md border-l-4 border-yellow-500">
-              <h3 className="text-gray-500 text-xs sm:text-sm font-medium">
-                Pending Tasks
-              </h3>
-              <p className="text-2xl sm:text-3xl font-bold text-gray-800 mt-1 sm:mt-2">
+              <h3 className="text-gray-500 text-sm">Pending Tasks</h3>
+              <p className="text-2xl sm:text-3xl font-bold mt-2">
                 {dashboardData?.charts?.taskDistribution?.Pending || 0}
               </p>
             </div>
 
             <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md border-l-4 border-green-500">
-              <h3 className="text-gray-500 text-xs sm:text-sm font-medium">
-                In Progress Tasks
-              </h3>
-              <p className="text-2xl sm:text-3xl font-bold text-gray-800 mt-1 sm:mt-2">
+              <h3 className="text-gray-500 text-sm">In Progress Tasks</h3>
+              <p className="text-2xl sm:text-3xl font-bold mt-2">
                 {dashboardData?.charts?.taskDistribution?.InProgress || 0}
               </p>
             </div>
 
             <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md border-l-4 border-red-500">
-              <h3 className="text-gray-500 text-xs sm:text-sm font-medium">
-                Completed Tasks
-              </h3>
-              <p className="text-2xl sm:text-3xl font-bold text-gray-800 mt-1 sm:mt-2">
+              <h3 className="text-gray-500 text-sm">Completed Tasks</h3>
+              <p className="text-2xl sm:text-3xl font-bold mt-2">
                 {dashboardData?.charts?.taskDistribution?.Completed || 0}
               </p>
             </div>
-
           </div>
         )}
 
         {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white p-4 sm:p-6 rounded-xl w-full overflow-hidden">
+            <h3 className="text-lg font-semibold mb-4">Task Distribution</h3>
 
-          <div className="bg-white p-4 sm:p-6 rounded-xl w-full">
-            <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">
-              Task Distribution
-            </h3>
-
-            <div className="h-52 sm:h-64 w-full">
+            <div className="w-full h-[240px] sm:h-[300px]">
               <CustomPiechart
                 data={piechartData}
                 label="Total Balance"
@@ -144,21 +128,17 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="bg-white p-4 sm:p-6 rounded-xl w-full">
-            <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">
-              Task Priority Levels
-            </h3>
+          <div className="bg-white p-4 sm:p-6 rounded-xl w-full overflow-hidden">
+            <h3 className="text-lg font-semibold mb-4">Task Priority Levels</h3>
 
-            <div className="h-52 sm:h-64 w-full">
+            <div className="w-full h-[240px] sm:h-[300px]">
               <CustomBarchart data={barChartData} />
             </div>
           </div>
-
         </div>
 
         {/* Recent Tasks */}
         <RecentTasks tasks={dashboardData?.recentTasks} />
-
       </div>
     </DashboardLayout>
   );
