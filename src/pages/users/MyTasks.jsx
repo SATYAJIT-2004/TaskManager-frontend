@@ -28,7 +28,7 @@ const MyTasks = () => {
 
       if (response?.data) {
         setAllTasks(
-          response.data?.tasks?.length > 0 ? response.data.tasks : [],
+          response.data?.tasks?.length > 0 ? response.data.tasks : []
         );
       }
 
@@ -51,30 +51,34 @@ const MyTasks = () => {
 
   useEffect(() => {
     getAllTasks(filterStatus);
-
-    return () => {};
   }, [filterStatus]);
 
   return (
     <DashboardLayout activeMenu={"My Tasks"}>
-      <div className="my-6 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-6">
-          <div className="flex items-center justify-between gap-4 w-full md:w-auto ">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-              My Tasks
-            </h2>
-          </div>
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+      <div className="py-4 px-3 sm:px-6 lg:px-8 w-full overflow-x-hidden">
+
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800">
+            My Tasks
+          </h2>
+
+          <div className="w-full lg:w-auto">
             <TaskStatusTabs
               tabs={tabs}
               activeTab={filterStatus}
               setActiveTab={setFilterStatus}
             />
           </div>
+
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+
+        {/* Tasks Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
           {allTasks.length > 0 ? (
-            allTasks?.map((item, index) => (
+            allTasks.map((item) => (
               <TaskCard
                 key={item._id}
                 title={item.title}
@@ -85,7 +89,7 @@ const MyTasks = () => {
                 createdAt={item.createdAt}
                 dueDate={item.dueDate}
                 assignedTo={item.assignedTo?.map(
-                  (item) => item.profileImageUrl,
+                  (item) => item.profileImageUrl
                 )}
                 attachmentCount={item.attachments?.length || 0}
                 completedTodoCount={item.completedCount || 0}
@@ -100,7 +104,9 @@ const MyTasks = () => {
               </p>
             </div>
           )}
+
         </div>
+
       </div>
     </DashboardLayout>
   );
