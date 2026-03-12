@@ -98,7 +98,7 @@ const handleClick = (taskData) => {
                 attachmentCount={item.attachments?.length || 0}
                 completedTodoCount={item.completedCount || 0}
                 todoCheckList={item.todoCheckList || []}
-                onClick={() => handleClick(item._id)}
+                onClick={() => handleClick(item)}
               />
             ))
           ) : (
