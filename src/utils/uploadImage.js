@@ -1,19 +1,25 @@
-import axiosInstance from "./axiosInstance"
+const uploadImage = async (imageFile) => {
 
-const uploadImage = async(imageFile)=>{
     const formData = new FormData()
-
-    formData.append("image",imageFile)
+    formData.append("file", imageFile)
+    formData.append("upload_preset", "TaskManager")
 
     try {
-        const response = await axiosInstance.post("/auth/upload-image",formData,{
-            headers:{
-                "Content-Type":"multipart/form-data",
+
+        const response = await fetch(
+            "https://api.cloudinary.com/v1_1/dlw6yehpi/image/upload",
+            {
+                method: "POST",
+                body: formData
             }
-        })
-      return response.data
+        )
+
+        const data = await response.json()
+
+        return data.secure_url
+
     } catch (error) {
-        console.log(`Error uploading image: ${error.message}`)
+        console.log("Error uploading image:", error)
         throw error
     }
 }
