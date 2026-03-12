@@ -100,7 +100,7 @@ const MyTasks = () => {
           ) : (
             <div className="col-span-full text-center py-10">
               <p className="text-gray-500">
-                No tasks found. Create a new task to get started
+                No tasks found...
               </p>
             </div>
           )}

@@ -54,7 +54,7 @@ const MyTasks = () => {
   }, [filterStatus]);
 
   return (
-    <DashboardLayout activeMenu={"My Tasks"}>
+    <DashboardLayout activeMenu={"Manage Tasks"}>
       <div className="w-full py-4 px-3 sm:px-6 lg:px-8 overflow-x-hidden">
 
         {/* Header */}
@@ -63,7 +63,7 @@ const MyTasks = () => {
           <div className="flex items-center gap-3">
             <FaFileLines className="text-blue-600 text-xl sm:text-2xl" />
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800">
-              My Tasks
+              Manage Tasks
             </h2>
           </div>
 
