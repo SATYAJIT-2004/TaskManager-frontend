@@ -12,9 +12,8 @@ const SideMenu = ({ activeMenu }) => {
   const [SideMenuData, setSideMenuData] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
 
-
   const handleClick = (route) => {
-    console.log(route)
+    console.log(route);
     if (route === "logout" || route === "/logout") {
       handleLogout();
       return;
@@ -38,36 +37,49 @@ const SideMenu = ({ activeMenu }) => {
   useEffect(() => {
     if (currentUser) {
       setSideMenuData(
-        currentUser?.role === "admin" ? SIDE_MENU_DATA : USER_SIDE_MENU_DATA,
+        currentUser?.role === "admin" ? SIDE_MENU_DATA : USER_SIDE_MENU_DATA
       );
     }
-    return () => {};
   }, [currentUser]);
+
   return (
-    <div className="w-64 p-6 h-full flex-col lg:border-r lg:border-gray-200">
+    <div className="fixed lg:static left-0 top-0 h-screen w-1/2 lg:w-64 bg-white p-6 flex flex-col border-r border-gray-200 shadow-md z-50">
+
+      {/* Profile Section */}
       <div className="flex flex-col items-center mb-8">
         <div className="w-20 h-20 rounded-full bg-gray-100 overflow-hidden mb-4 border-2 border-blue-200">
           <img
-            src={currentUser?.profileImageUrl || null}
+            src={currentUser?.profileImageUrl || ""}
             alt="Profile Image"
             className="w-full h-full object-cover"
           />
         </div>
+
         {currentUser?.role === "admin" && (
           <div className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-2">
             Admin
           </div>
         )}
-        <h5 className="text-lg font-semibold text-gray-800 ">
+
+        <h5 className="text-lg font-semibold text-gray-800">
           {currentUser?.name || ""}
         </h5>
-        <p className="text-sm text-gray-500">{currentUser?.email || ""}</p>
+
+        <p className="text-sm text-gray-500">
+          {currentUser?.email || ""}
+        </p>
       </div>
+
+      {/* Menu */}
       <div className="flex-1 overflow-y-auto">
         {SideMenuData.map((item, index) => (
           <button
             key={`menu_${index}`}
-            className={`w-full flex items-center gap-4 text-[15px] ${activeMenu === item.label ? "text-blue-500 bg-linear-to-r from-blue-50/40 to-blue-100/50" : ""} py-3 px-6 mb-3 cursor-pointer`}
+            className={`w-full flex items-center gap-4 text-[15px] ${
+              activeMenu === item.label
+                ? "text-blue-500 bg-gradient-to-r from-blue-50 to-blue-100"
+                : ""
+            } py-3 px-6 mb-3 cursor-pointer rounded-lg`}
             onClick={() => handleClick(item.path)}
           >
             <item.icon className="text-2xl" />
