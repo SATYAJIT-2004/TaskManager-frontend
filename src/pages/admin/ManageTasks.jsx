@@ -48,10 +48,36 @@ const MyTasks = () => {
 const handleClick = (taskData) => {
     navigate("/admin/create-task", { state: { taskId: taskData._id } })
   }
+   const handleDownloadReport = async () => {
+    try {
+      const response = await axiosInstance.get("/reports/export/tasks", {
+        responseType: "blob",
+      })
+
+      // create a url for the blob
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement("a")
+
+      link.href = url
+
+      link.setAttribute("download", "tasks_details.xlsx")
+      document.body.appendChild(link)
+
+      link.click()
+
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+    } catch (error) {
+      console.log("Error downloading task-details report: ", error)
+      toast.error("Error downloading task-details report. Please try again!")
+    }
+  }
+
 
 
   useEffect(() => {
     getAllTasks(filterStatus);
+    return ()=>{}
   }, [filterStatus]);
 
   return (
@@ -64,8 +90,15 @@ const handleClick = (taskData) => {
           <div className="flex items-center gap-3">
             <FaFileLines className="text-blue-600 text-xl sm:text-2xl" />
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800">
-              Manage Task
+              Manage Your Task
             </h2>
+              <button
+              className="md:hidden px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 font-medium shadow-sm hover:shadow-md cursor-pointer"
+              onClick={handleDownloadReport}
+              type="button"
+            >
+              Download
+            </button>
           </div>
 
           <div className="w-full lg:w-auto">
