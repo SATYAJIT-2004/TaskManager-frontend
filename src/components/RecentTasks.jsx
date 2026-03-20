@@ -3,7 +3,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const RecentTasks = ({ tasks }) => {
-  console.log(tasks)
   const navigate = useNavigate();
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden">

@@ -19,7 +19,6 @@ const TaskCard = ({
   onClick,
 }) => {
     
-    console.log("TaskCard data:", completedTodoCount, todoCheckList);
   const getStatusTagColor = () => {
     switch (status) {
       case "Pending":

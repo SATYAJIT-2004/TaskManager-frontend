@@ -20,7 +20,6 @@ const UserDashboard = () => {
 
   //Prepare data for Pie chart
   const prepareChartData = (data) => {
-    console.log("data is: ",data)
     const taskDistributions = data?.taskDistribution || {};
     const taskPriorityLevels = data?.taskPriorityLevel || {};
 
